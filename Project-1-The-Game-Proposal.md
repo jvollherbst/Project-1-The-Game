@@ -1,0 +1,21 @@
+# Project #1: The Game—Proposal
+
+Based on the german card game [Ghost Blitz](https://boardgamegeek.com/boardgame/83195/ghost-blitz),
+this game will test the player's memory and reflexes. The game begins by displaying five different objects in five different colors. At the start of the game, the player is shown an image containing five objects. Sometimes four of the objects will be in the wrong color, and the user must select the object with the **correct** color. Other times, all of the colors will be wrong, and the user must select the object that **does not appear** in the image.
+
+**User Story**
+
+- As a player I want to understand the rules of the Game
+- I have five objects, in five different colors that will be displayed at the bottom of the browser window
+- Above these objects, the game will display an image
+- This image will display my objects in different colors, but only one will be the correct color
+- I will only have a few seconds to look at and remember the card
+- The game will then hide the card
+- I will then have a few seconds to select the object that had the correct color from my items displayed at the bottom of the browser window
+- If I guess correctly, I score a point
+- The game will display my score
+- If I do not guess correctly, the computer will alert me that I am wrong, and show the correct answer
+- The speed will increase as I progress through the game
+- As a player, I want the option to end the game by choice
+- I want the game to alert me that the game is over
+- As a player, I want to play against another person
