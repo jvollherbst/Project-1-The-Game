@@ -1,7 +1,7 @@
 # Project #1: The Game—Proposal
 
 Based on the german card game [Ghost Blitz](https://boardgamegeek.com/boardgame/83195/ghost-blitz),
-this game will test the player's memory and reflexes. The game begins by displaying five different objects in five different colors. At the start of the game, the player is shown an image containing five objects. Sometimes four of the objects will be in the wrong color, and the user must select the object with the **correct** color. Other times, all of the colors will be wrong, and the user must select the object that **does not appear** in the image.
+this game will test the player's memory and reflexes. The game begins by displaying five different objects in five different colors. At the start of the game, the player is shown an image containing four objects. Sometimes three of the objects will be in the wrong color, and the user must select the object with the **correct** color. Other times, all of the colors will be wrong, and the user must select the object that **does not appear** in the image.
 
 **User Story**
 
