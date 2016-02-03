@@ -11,7 +11,7 @@ this game will test the player's memory and reflexes. The game begins by display
 - As a user, I will only have a few seconds to look at and remember the image
 - The game will then hide the image
 - The game will create a new container below the hidden image
-- The game will next display a new set of shapes in different colors
+- The game will next display a new set of shapes in different colors in this container
 - Only one will match an object from the original set
 - As a user, I will need to select the object from this new set of items that matches the hidden set
 - If my choice is correctly, I score a point
