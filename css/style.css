@@ -1,4 +1,14 @@
+body{
+  background-color: #f3f3f3;
+  color: #333333;
+}
+
 #wrapper{
-  width: 56.25em;
+  width: 50em;
   margin: 0 auto;
+}
+
+.new-img{
+  float: left;
+  padding: 1em;
 }
