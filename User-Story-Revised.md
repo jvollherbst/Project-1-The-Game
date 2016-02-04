@@ -20,4 +20,4 @@
 Bonus:
 - The user can drag elements into the correct order, rather than click
 - The speed will increase as I progress through the game
-- The game will increase in complexity
+- Convert images to processing.js
