@@ -1,6 +1,15 @@
 body{
   background-color: #f3f3f3;
-  color: #333333;
+  color: #666666;
+  font-family: 'Muli', sans-serif;
+}
+
+header{
+  margin: 2em 0;
+}
+
+h1{
+  letter-spacing: .05em;
 }
 
 #wrapper{
@@ -10,5 +19,6 @@ body{
 
 .new-img, .choice-img{
   float: left;
+  margin-top: 2em;
   padding: 1em;
 }

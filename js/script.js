@@ -35,14 +35,20 @@ function hideImg(){
 
 hideImg();
 
+// Source: https://css-tricks.com/snippets/javascript/shuffle-array/
+function Shuffle(o) {
+	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	return o;
+};
+// Source: https://css-tricks.com/snippets/javascript/shuffle-array/
+
+
 function shuffleArray(){
   setTimeout(function(){
 
   var imgArrayOne = ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg'];
 
-  // Source: https://css-tricks.com/snippets/javascript/shuffle-array/
-  var shuffledArray = imgArrayOne.sort(function() { return 0.5 - Math.random() });
-  // Source: https://css-tricks.com/snippets/javascript/shuffle-array/
+  var shuffledArray = Shuffle(imgArrayOne);
 
   for(var i = 0; i < shuffledArray.length; i++){
     $('<div>').addClass('choice-img').appendTo('#main-img').prepend('<img src="' + shuffledArray[i] + '"/>');
