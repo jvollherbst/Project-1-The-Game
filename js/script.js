@@ -17,21 +17,21 @@ var arrayLibrary = [
 
 var randomArray = arrayLibrary[Math.floor(Math.random() * arrayLibrary.length)];
 
-// Source: CHRIS COYIER https://css-tricks.com/snippets/javascript/shuffle-array/
+// Source for below code: CHRIS COYIER https://css-tricks.com/snippets/javascript/shuffle-array/
 function Shuffle(o) {
 	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
 	return o;
-};// Source: CHRIS COYIER https://css-tricks.com/license/
+};// Source for above code: CHRIS COYIER https://css-tricks.com/license/
 
 //what is a better way to organzie all your functions...
 
 $(document).ready(function() {
 
-function displayImg(){//Should be a constructor function
+function displayImg(){//Should be a protoype???
   var imgArrayOne = randomArray;
 
   for(var i = 0; i < imgArrayOne.length; i++){
-    $('<div>').addClass('new-img ' + [i]).appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>');
+    $('<div>').addClass('new-img').appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>').addClass([i]);
   }
 
   function hideImg(){
@@ -47,7 +47,8 @@ function displayImg(){//Should be a constructor function
     var shuffledArray = Shuffle(imgArrayOne);
 
     for(var i = 0; i < shuffledArray.length; i++){
-      $('<div>').addClass('choice-img ' + [i]).appendTo('#main-img').prepend('<img src="' + shuffledArray[i] + '"/>');
+      $('<div>').addClass('choice-img').appendTo('#main-img').prepend('<img src="' + shuffledArray[i] + '"/>');
+      //$('img').attr('class', [i]);
     }
     }, 6000);
   }
