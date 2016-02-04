@@ -1,6 +1,5 @@
-$(document).ready(function() {
 //Nested array loop—worked on with Ari
-// var complexArray = [[1,2,3],[4,5,6]];
+// var arrayLibrary = [[1,2,3],[4,5,6]];
 //
 // for(var i = 0; i < complexArray.length; i++){
 //   var otherArray = complexArray[i];
@@ -10,15 +9,17 @@ $(document).ready(function() {
 //   }
 // }
 
+var arrayLibrary = [
+  ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
+  ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg']
+];
 
-// This interferes with my displayImg funcion...why?
-// var arrayLibrary = {
-//   [arrayOne: ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg']],
-//   [arrayTwo: ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg']],
-// }
+//what is a better way to organzie all your functions...
+
+$(document).ready(function() {
 
 function displayImg(){//Should be a constructor function
-  var imgArrayOne = ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg'];
+  var imgArrayOne = arrayLibrary[0];
 
   for(var i = 0; i < imgArrayOne.length; i++){
     $('<div>').addClass('new-img ' + [i]).appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>');
@@ -45,20 +46,27 @@ function Shuffle(o) {
 function shuffleArray(){
   setTimeout(function(){
 
-  var imgArrayOne = ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg'];
-
-  var shuffledArray = Shuffle(imgArrayOne);
+  var shuffledArray = Shuffle(arrayLibrary[0]);
 
   for(var i = 0; i < shuffledArray.length; i++){
     $('<div>').addClass('choice-img ' + [i]).appendTo('#main-img').prepend('<img src="' + shuffledArray[i] + '"/>');
   }
-}, 6000);
+  }, 6000);
 }
 shuffleArray();
 
 function playerMove(){
   //should check user's onclicks and match against source array
-  
+  //should return true if a match, and false if not a match
+}
+
+function checkWin(){
+  //should check results of playerMove function
+
+  //if user clicks are === to a particular array (arrayLibrary[2], then return true/win message)
+  //if win, player receives 1 point
+  //else, alert user they are wrong
+  var playerScore;
 }
 
 
