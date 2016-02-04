@@ -11,30 +11,11 @@
 
 var arrayLibrary = [
   ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
-  ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg']
+  ['images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg',  'images/green-diamond.svg'],
+  ['images/green-diamond.svg', 'images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg']
 ];
 
-//what is a better way to organzie all your functions...
-
-$(document).ready(function() {
-
-function displayImg(){//Should be a constructor function
-  var imgArrayOne = arrayLibrary[0];
-
-  for(var i = 0; i < imgArrayOne.length; i++){
-    $('<div>').addClass('new-img ' + [i]).appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>');
-  }
-}//end displayImg
-
-displayImg();
-
-function hideImg(){
-  setTimeout(function(){
-    $('#main-img').empty();
-  }, 4000);
-}//end hideImg
-
-hideImg();
+var randomArray = arrayLibrary[Math.floor(Math.random() * arrayLibrary.length)];
 
 // Source: CHRIS COYIER https://css-tricks.com/snippets/javascript/shuffle-array/
 function Shuffle(o) {
@@ -42,18 +23,40 @@ function Shuffle(o) {
 	return o;
 };// Source: CHRIS COYIER https://css-tricks.com/license/
 
+//what is a better way to organzie all your functions...
 
-function shuffleArray(){
-  setTimeout(function(){
+$(document).ready(function() {
 
-  var shuffledArray = Shuffle(arrayLibrary[0]);
+function displayImg(){//Should be a constructor function
+  var imgArrayOne = randomArray;
 
-  for(var i = 0; i < shuffledArray.length; i++){
-    $('<div>').addClass('choice-img ' + [i]).appendTo('#main-img').prepend('<img src="' + shuffledArray[i] + '"/>');
+  for(var i = 0; i < imgArrayOne.length; i++){
+    $('<div>').addClass('new-img ' + [i]).appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>');
   }
-  }, 6000);
-}
-shuffleArray();
+
+  function hideImg(){
+    setTimeout(function(){
+      $('#main-img').empty();
+    }, 4000);
+  }//end hideImg
+  hideImg();
+
+  function shuffleArray(){
+    setTimeout(function(){
+
+    var shuffledArray = Shuffle(imgArrayOne);
+
+    for(var i = 0; i < shuffledArray.length; i++){
+      $('<div>').addClass('choice-img ' + [i]).appendTo('#main-img').prepend('<img src="' + shuffledArray[i] + '"/>');
+    }
+    }, 6000);
+  }
+  shuffleArray();
+}//end displayImg
+
+displayImg();
+
+
 
 function playerMove(){
   //should check user's onclicks and match against source array
