@@ -1,14 +1,3 @@
-//Nested array loop—worked on with Ari
-// var arrayLibrary = [[1,2,3],[4,5,6]];
-//
-// for(var i = 0; i < complexArray.length; i++){
-//   var otherArray = complexArray[i];
-//
-//   for(var j = 0; j < otherArray.length; j++){
-//     console.log(otherArray[j]);
-//   }
-// }
-
 var arrayLibrary = [
   ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
   ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
@@ -28,7 +17,9 @@ function Shuffle(o) {
 //$(this).click(function(e){console.log(e.toElement)});
 
 var winState = [];
-var compare = [];
+var playerInput = [];
+
+var currentPlayer;
 
 $(document).ready(function() {
 
@@ -38,8 +29,8 @@ function displayImg(){
     $('<div>').addClass('new-img').appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>').attr('data-value', i);
     winState.push(imgArrayOne[i]);
   };
-  compare.push(winState);
-  console.log(compare);
+  //compare.push(winState);
+  //console.log(compare);
 };//end displayImg
 
 function hideImg(){
@@ -65,14 +56,10 @@ function shuffleShowImg(){
 };//end shuffleShowImg
 shuffleShowImg();
 
-
 function playerMove(target){
-  var playerInput = [];
+  playerInput.push(event.target);//do i need a loop equal to the length of the winState array?
 
-  playerInput.push(event.target);
-
-  //console.log(playerInput);
-
+  console.log(playerInput);
 
   //grab input by on click
   //push into an array for users input
@@ -88,8 +75,35 @@ function checkWin(){
   //if user clicks are === to a particular array (arrayLibrary[2], then return true/win message)
   //if win, player receives 1 point
   //else, alert user they are wrong
+
+//From Ari Ingber
+  var status = false;
+
   var playerScore;
+
+  for(var i = 0; i < winState.length; i++){
+    if(winState[i] === playerInput[i]){
+    status = true;
+    playerScore +=
+    console.log('you win');
+  }
+  else{
+    status = false;
+    console.log('you lose');
+    break;
+  }
+}
+
+if(status === true){
+  $('.player-one').text('Player One Score: ' + playerScore)
+}
+else{
+  alert('You Lose')
+}
+//From Ari Ingber
+
 };
+checkWin()
 
 //Razaik Boparai's timer code
 // function displayTime() {
@@ -103,7 +117,6 @@ function checkWin(){
 //     }
 // displayTime();
 //Razaik Boparai's timer code
-
 
 function startGame(){
   $('.start').on('click', displayImg());
