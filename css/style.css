@@ -1,0 +1,53 @@
+body{
+  background-color: #f3f3f3;
+  color: #666666;
+  font-family: 'Muli', sans-serif;
+}
+
+header{
+  margin: 2em 0;
+}
+
+h1{
+  font-family: 'Varela Round', sans-serif;
+  letter-spacing: .05em;
+}
+
+button{
+  font-family: 'Muli', sans-serif !important;
+  font-weight: bold;
+  font-size: .975em !important;
+}
+
+#wrapper{
+  width: 51em;
+  margin: 0 auto;
+}
+
+.new-img, .choice-img{
+  float: left;
+  margin-top: 2em;
+  padding: 1em;
+}
+
+#score{
+  border-top: .25em solid #dfdfdf;
+  width: 50em;
+  bottom: 5em;
+  position: fixed;
+}
+
+.player-one, .player-two, .timer {
+  width: 16em;
+  vertical-align: top;
+}
+.player-one{
+  float:left;
+}
+.timer{
+  float:left;
+  margin: 0 1em;
+}
+.player-two{
+  float:right;
+}
