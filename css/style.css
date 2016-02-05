@@ -20,7 +20,7 @@ button{
 }
 
 #wrapper{
-  width: 50em;
+  width: 51em;
   margin: 0 auto;
 }
 
@@ -37,10 +37,17 @@ button{
   position: fixed;
 }
 
+.player-one, .player-two, .timer {
+  width: 16em;
+  vertical-align: top;
+}
 .player-one{
   float:left;
 }
-
+.timer{
+  float:left;
+  margin: 0 1em;
+}
 .player-two{
   float:right;
 }

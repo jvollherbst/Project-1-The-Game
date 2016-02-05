@@ -24,79 +24,58 @@ function Shuffle(o) {
 	return o;
 };// Source for above code: CHRIS COYIER https://css-tricks.com/license/
 
+
 // Array.protoype.shuffle = function() {
 // 	return Shuffle(this);
 // };// Source for above code: CHRIS COYIER https://css-tricks.com/license/
 
 
+//$('.new-img').click(function(event){console.log($(event.target).children());});
+
+//$(this).click(function(e){console.log(e.toElement)});
 
 //what is a better way to organzie all your functions...
 
 $(document).ready(function() {
 
-// function displayImg(){//Should be a protoype???
-//   var imgArrayOne = randomArray;
-//
-//   for(var i = 0; i < imgArrayOne.length; i++){
-//     $('<div>').addClass('new-img').appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>').addClass([i]);
-//   }
-//
-//   function hideImg(){
-//     setTimeout(function(){
-//       $('#main-img').empty();
-//     }, 4000);
-//   }//end hideImg
-//   hideImg();
-//
-//   function shuffleArray(){
-//     setTimeout(function(){
-//
-//     var shuffledArray = Shuffle(imgArrayOne);
-//
-//     for(var i = 0; i < shuffledArray.length; i++){
-//       $('<div>').addClass('choice-img').appendTo('#main-img').prepend('<img src="' + shuffledArray[i] + '"/>');
-//       //$('img').attr('class', [i]);
-//     }
-//     }, 6000);
-//   }
-//   shuffleArray();
-// }//end displayImg
-//
-// displayImg();
-
 function displayImg(){//Should be a protoype???
   var imgArrayOne = randomArray;
-
   for(var i = 0; i < imgArrayOne.length; i++){
-    $('<div>').addClass('new-img').appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>').addClass([i]);
-  }
+    $('<div>').addClass('new-img').appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>').attr('data-value', i);
+  };
+};//end displayImg
 
-  function hideImg(){
-    setTimeout(function(){
-      $('#main-img').hide();
-    }, 4000);
-  }//end hideImg
-  hideImg();
+function hideImg(){
+  setTimeout(function(){
+    $('.new-img').hide();
+  }, 4000);//needs to be less than shuffleShowImg
+  //debugger;
+};//end hideImg
+hideImg();
 
-  function shuffleArray(){
-
-    var shuffledArray = Shuffle(displayImg);
-
-    for(var i = 0; i < shuffledArray.length; i++){
-      $('<div>').addClass('choice-img').appendTo('#main-img').prepend('<img src="' + shuffledArray[i] + '"/>');
-      //$('img').attr('class', [i]);
+function shuffleShowImg(){
+  setTimeout(function(){
+    var $newImg = $('.new-img');
+    var shuffled = Shuffle($newImg);
+    for(var i = 0; i < shuffled.length; i++){
+      $('#main-img').prepend(shuffled[i]);
     }
-  }
-  shuffleArray();
-}//end displayImg
-
-displayImg();
+    $($newImg).show();
+  }, 6000);
+};//end shuffleShowImg
+shuffleShowImg();
 
 
 function playerMove(){
   //should check user's onclicks and match against source array
   //should return true if a match, and false if not a match
-}
+  var playerInput = [];
+  //$(this).click(function(e){playerInput.push(e.toElement)});
+
+  //grab input by on click
+  //push into an array for users input
+  //empty array outside of while loop
+};
 
 function checkWin(){
   //should check results of playerMove function
@@ -105,9 +84,11 @@ function checkWin(){
   //if win, player receives 1 point
   //else, alert user they are wrong
   var playerScore;
-}
+};
 
-
-
+function startGame(){
+  $('.start').on('click', displayImg());
+};
+startGame();
 
 });// end document ready
