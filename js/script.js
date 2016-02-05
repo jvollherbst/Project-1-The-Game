@@ -11,7 +11,7 @@
 
 var arrayLibrary = [
   ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
-  ['images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg',  'images/green-diamond.svg'],
+  ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
   ['images/green-diamond.svg', 'images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg']
 ];
 
@@ -24,25 +24,22 @@ function Shuffle(o) {
 	return o;
 };// Source for above code: CHRIS COYIER https://css-tricks.com/license/
 
-
-// Array.protoype.shuffle = function() {
-// 	return Shuffle(this);
-// };// Source for above code: CHRIS COYIER https://css-tricks.com/license/
-
-
 //$('.new-img').click(function(event){console.log($(event.target).children());});
-
 //$(this).click(function(e){console.log(e.toElement)});
 
-//what is a better way to organzie all your functions...
+var winState = [];
+var compare = [];
 
 $(document).ready(function() {
 
-function displayImg(){//Should be a protoype???
-  var imgArrayOne = randomArray;
+function displayImg(){
+  var imgArrayOne = arrayLibrary[0];
   for(var i = 0; i < imgArrayOne.length; i++){
     $('<div>').addClass('new-img').appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>').attr('data-value', i);
+    winState.push(imgArrayOne[i]);
   };
+  compare.push(winState);
+  console.log(compare);
 };//end displayImg
 
 function hideImg(){
@@ -59,6 +56,9 @@ function shuffleShowImg(){
     var shuffled = Shuffle($newImg);
     for(var i = 0; i < shuffled.length; i++){
       $('#main-img').prepend(shuffled[i]);
+      $(shuffled[i]).click(function(event) { //moved click event here, to include in loop
+        playerMove(event.target)
+      });
     }
     $($newImg).show();
   }, 6000);
@@ -66,14 +66,14 @@ function shuffleShowImg(){
 shuffleShowImg();
 
 
-function playerMove(){
-  //should check user's onclicks and match against source array
-  //should return true if a match, and false if not a match
+function playerMove(target){
   var playerInput = [];
 
-  $(this).click(function(e){playerInput.push(e.toElement)});
+  playerInput.push(event.target);
 
-  return playerInput;
+  //console.log(playerInput);
+
+
   //grab input by on click
   //push into an array for users input
   //empty array outside of while loop
@@ -90,6 +90,20 @@ function checkWin(){
   //else, alert user they are wrong
   var playerScore;
 };
+
+//Razaik Boparai's timer code
+// function displayTime() {
+//       counter = 0;
+//       var timer = setInterval(gettime, 1000);
+//       function gettime(){
+//         counter++;
+//         //i++;
+//         $('.timer').text('Time: ' + counter);
+//       }
+//     }
+// displayTime();
+//Razaik Boparai's timer code
+
 
 function startGame(){
   $('.start').on('click', displayImg());
