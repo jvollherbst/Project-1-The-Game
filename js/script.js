@@ -70,12 +70,17 @@ function playerMove(){
   //should check user's onclicks and match against source array
   //should return true if a match, and false if not a match
   var playerInput = [];
-  //$(this).click(function(e){playerInput.push(e.toElement)});
 
+  $(this).click(function(e){playerInput.push(e.toElement)});
+
+  return playerInput;
   //grab input by on click
   //push into an array for users input
   //empty array outside of while loop
+
+  //should also call a timer function
 };
+playerMove();
 
 function checkWin(){
   //should check results of playerMove function
