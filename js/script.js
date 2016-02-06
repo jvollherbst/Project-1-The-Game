@@ -19,6 +19,8 @@ function Shuffle(o) {
 var winState = [];
 var playerInput = [];
 
+var playerScore = 0;
+
 var currentPlayer;
 
 $(document).ready(function() {
@@ -78,7 +80,6 @@ function checkWin(){
 
   var status = false;
 
-  var playerScore = 0;
   //From Ari Ingber
   for(var i = 0; i < winState.length; i++){
     if(winState[i] === playerInput[i]){
@@ -95,10 +96,7 @@ function checkWin(){
 
 if(status == true){
   playerScore ++
-}
-
-if(status == true){
-  $('.player-one').text('Player One Score: ' + playerScore)
+  $('.playerone-score').text(playerScore)
   alert('You Win')
 }
 else{
