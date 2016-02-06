@@ -40,7 +40,7 @@ button{
   position: fixed;
 }
 
-.player-one, .player-two, .timer {
+.player-one, .timer {
   width: 16em;
   vertical-align: top;
 }
