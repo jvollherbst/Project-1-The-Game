@@ -1,7 +1,7 @@
 var arrayLibrary = [
-  ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
-  ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
-  ['images/green-diamond.svg', 'images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg']
+  ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg'],
+  // ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
+  // ['images/green-diamond.svg', 'images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg']
 ];
 
 var randomArray = arrayLibrary[Math.floor(Math.random() * arrayLibrary.length)];
@@ -16,26 +16,28 @@ function Shuffle(o) {
 var winState = [];
 var playerInput = [];
 
-var playerScore = 0;
+var playerOneScore = 0;
+var playerTwoScore = 0;
 
 var currentPlayer = 'Player One';
 
 $(document).ready(function() {
 
 function displayImg(){
-  var imgArrayOne = arrayLibrary[0];
+  var imgArrayOne = randomArray;
   for(var i = 0; i < imgArrayOne.length; i++){
     var x =  $('<div>').addClass('new-img').prepend('<img src="' + imgArrayOne[i] + '"/>').attr('data-value', i);
     winState.push(x.attr('data-value'));
     x.appendTo('#main-img');
   };
+  hideImg()
+  shuffleShowImg()
 };//end displayImg
 
 function hideImg(){
   setTimeout(function(){
     $('.new-img').hide();
   }, 4000);//needs to be less than shuffleShowImg
-  //debugger;
 };//end hideImg
 // hideImg();
 
@@ -74,23 +76,37 @@ function checkWin(){
   for(var i = 0; i < winState.length; i++){
     if(winState[i] === playerInput[i]){
     status = true;
-    console.log('you win');
   }
   else{
     status = false;
-    console.log('you lose');
     break;
   }
-}
+};
 //From Ari Ingber
 
-if(status == true ){
-  playerScore ++
-  $('.playerone-score').text(playerScore)
-  alert('You Win')
+winState = [];
+playerInput = [];
+
+if(status == true && currentPlayer === 'Player One'){
+  playerOneScore ++
+  $('.playerone-score').text(playerOneScore)
+  alert('Player One You Win')
 }
-else{
-  alert('You Lose')
+else if(status == false && currentPlayer === 'Player One'){
+  alert('Player One You Lose')
+}
+else if(status == true && currentPlayer === 'Player Two'){
+  playerTwoScore ++
+  $('.playertwo-score').text(playerTwoScore)
+  alert('Player Two You Win')
+}
+else if(status == false && currentPlayer === 'Player Two'){
+  alert('Player Two You Lose')
+}
+
+if(playerOneScore === 3 || playerTwoScore === 3){
+  alert('Game Over')
+  $('#main-img').empty();
 }
 newPlayer()
 };
@@ -105,7 +121,14 @@ function newPlayer(){
     currentPlayer = 'Player One';
     alert('Player One\'s turn')
   }
-}
+  nextRound();
+};
+
+function nextRound(){
+  $('#main-img').empty();
+  displayImg()
+  playerMove()
+};
 
 //Razaik Boparai's timer code
 // function displayTime() {
@@ -119,10 +142,9 @@ function newPlayer(){
 //     }
 // displayTime();
 //Razaik Boparai's timer code
+
 function startGame(){
   displayImg()
-  hideImg()
-  shuffleShowImg()
   playerMove()
 };
 
@@ -130,4 +152,5 @@ function start(){
   $('.start').on('click', function(e){return startGame()});
 };
 start()
+
 });// end document ready

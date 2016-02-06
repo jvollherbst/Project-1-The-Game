@@ -24,16 +24,19 @@ button{
   margin: 0 auto;
 }
 
-.new-img, .choice-img{
+.new-img{
   float: left;
   margin-top: 2em;
   padding: 1em;
+}
+.new-img:hover{
+  opacity: .5;
 }
 
 #score{
   border-top: .25em solid #dfdfdf;
   width: 50em;
-  bottom: 5em;
+  bottom: 3em;
   position: fixed;
 }
 
