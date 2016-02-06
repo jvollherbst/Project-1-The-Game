@@ -13,15 +13,12 @@ function Shuffle(o) {
 	return o;
 };// Source for above code: CHRIS COYIER https://css-tricks.com/license/
 
-//$('.new-img').click(function(event){console.log($(event.target).children());});
-//$(this).click(function(e){console.log(e.toElement)});
-
 var winState = [];
 var playerInput = [];
 
 var playerScore = 0;
 
-var currentPlayer;
+var currentPlayer = 'Player One';
 
 $(document).ready(function() {
 
@@ -40,7 +37,7 @@ function hideImg(){
   }, 4000);//needs to be less than shuffleShowImg
   //debugger;
 };//end hideImg
-hideImg();
+// hideImg();
 
 function shuffleShowImg(){
   setTimeout(function(){
@@ -48,33 +45,26 @@ function shuffleShowImg(){
     var shuffled = Shuffle($newImg);
     for(var i = 0; i < shuffled.length; i++){
       $('#main-img').prepend(shuffled[i]);
-    //  $(shuffled[i]).click(function(event) { //moved click event here, to include in loop
+    //  $(shuffled[i]).click(function(event) { //this includes the #document as part of the array.stopPropagation not working...
     //     playerMove(event.target)
     //   });
     }
     $($newImg).show();
   }, 6000);
 };//end shuffleShowImg
-shuffleShowImg();
+// shuffleShowImg();
 
 function playerMove(target){
   $('.new-img').click(function(e){
     playerInput.push($(this).attr('data-value'));
+
+    if(playerInput.length === winState.length){
+      return checkWin()
+    }
   });
-//   $('.new-img').click(function(e){
-//   playerInput.push(e.target);
-// });
-//playerInput.push(event.target);
 
-  console.log(playerInput);
-
-  //grab input by on click
-  //push into an array for users input
-  //empty array outside of while loop
-
-  //should also call a timer function
 };
-playerMove();
+// playerMove();
 
 function checkWin(){
 
@@ -94,7 +84,7 @@ function checkWin(){
 }
 //From Ari Ingber
 
-if(status == true){
+if(status == true ){
   playerScore ++
   $('.playerone-score').text(playerScore)
   alert('You Win')
@@ -102,8 +92,20 @@ if(status == true){
 else{
   alert('You Lose')
 }
+newPlayer()
 };
-checkWin()
+// checkWin()
+
+function newPlayer(){
+  if(currentPlayer === 'Player One'){
+    currentPlayer = 'Player Two';
+    alert('Player Two\'s turn')
+  }
+  else{
+    currentPlayer = 'Player One';
+    alert('Player One\'s turn')
+  }
+}
 
 //Razaik Boparai's timer code
 // function displayTime() {
@@ -117,10 +119,15 @@ checkWin()
 //     }
 // displayTime();
 //Razaik Boparai's timer code
-
 function startGame(){
-  $('.start').on('click', displayImg());
+  displayImg()
+  hideImg()
+  shuffleShowImg()
+  playerMove()
 };
-startGame();
 
+function start(){
+  $('.start').on('click', function(e){return startGame()});
+};
+start()
 });// end document ready
