@@ -100,7 +100,7 @@ if(status == true){
   alert('You Win')
 }
 else{
-  //alert('You Lose')
+  alert('You Lose')
 }
 };
 checkWin()
