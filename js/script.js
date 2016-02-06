@@ -26,11 +26,10 @@ $(document).ready(function() {
 function displayImg(){
   var imgArrayOne = arrayLibrary[0];
   for(var i = 0; i < imgArrayOne.length; i++){
-    $('<div>').addClass('new-img').appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>').attr('data-value', i);
-    winState.push(imgArrayOne[i]);
+    var x =  $('<div>').addClass('new-img').prepend('<img src="' + imgArrayOne[i] + '"/>').attr('data-value', i);
+    winState.push(x.attr('data-value'));
+    x.appendTo('#main-img');
   };
-  //compare.push(winState);
-  //console.log(compare);
 };//end displayImg
 
 function hideImg(){
@@ -47,9 +46,9 @@ function shuffleShowImg(){
     var shuffled = Shuffle($newImg);
     for(var i = 0; i < shuffled.length; i++){
       $('#main-img').prepend(shuffled[i]);
-      $(shuffled[i]).click(function(event) { //moved click event here, to include in loop
-        playerMove(event.target)
-      });
+    //  $(shuffled[i]).click(function(event) { //moved click event here, to include in loop
+    //     playerMove(event.target)
+    //   });
     }
     $($newImg).show();
   }, 6000);
@@ -57,7 +56,13 @@ function shuffleShowImg(){
 shuffleShowImg();
 
 function playerMove(target){
-  playerInput.push(event.target);//do i need a loop equal to the length of the winState array?
+  $('.new-img').click(function(e){
+    playerInput.push($(this).attr('data-value'));
+  });
+//   $('.new-img').click(function(e){
+//   playerInput.push(e.target);
+// });
+//playerInput.push(event.target);
 
   console.log(playerInput);
 
@@ -70,21 +75,14 @@ function playerMove(target){
 playerMove();
 
 function checkWin(){
-  //should check results of playerMove function
 
-  //if user clicks are === to a particular array (arrayLibrary[2], then return true/win message)
-  //if win, player receives 1 point
-  //else, alert user they are wrong
-
-//From Ari Ingber
   var status = false;
 
-  var playerScore;
-
+  var playerScore = 0;
+  //From Ari Ingber
   for(var i = 0; i < winState.length; i++){
     if(winState[i] === playerInput[i]){
     status = true;
-    playerScore +=
     console.log('you win');
   }
   else{
@@ -93,15 +91,19 @@ function checkWin(){
     break;
   }
 }
-
-if(status === true){
-  $('.player-one').text('Player One Score: ' + playerScore)
-}
-else{
-  alert('You Lose')
-}
 //From Ari Ingber
 
+if(status == true){
+  playerScore ++
+}
+
+if(status == true){
+  $('.player-one').text('Player One Score: ' + playerScore)
+  alert('You Win')
+}
+else{
+  //alert('You Lose')
+}
 };
 checkWin()
 
