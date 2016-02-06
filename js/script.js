@@ -37,7 +37,7 @@ function displayImg(){
 function hideImg(){
   setTimeout(function(){
     $('.new-img').hide();
-  }, 4000);//needs to be less than shuffleShowImg
+  }, 3000);//needs to be less than shuffleShowImg
 };//end hideImg
 // hideImg();
 
@@ -52,7 +52,7 @@ function shuffleShowImg(){
     //   });
     }
     $($newImg).show();
-  }, 6000);
+  }, 3000);
 };//end shuffleShowImg
 // shuffleShowImg();
 
@@ -64,7 +64,6 @@ function playerMove(target){
       return checkWin()
     }
   });
-
 };
 // playerMove();
 
@@ -72,7 +71,7 @@ function checkWin(){
 
   var status = false;
 
-  //From Ari Ingber
+  //Had help with this from Ari Ingber
   for(var i = 0; i < winState.length; i++){
     if(winState[i] === playerInput[i]){
     status = true;
@@ -81,34 +80,42 @@ function checkWin(){
     status = false;
     break;
   }
-};
-//From Ari Ingber
+  };
 
-winState = [];
-playerInput = [];
+  winState = [];
+  playerInput = [];
 
-if(status == true && currentPlayer === 'Player One'){
-  playerOneScore ++
-  $('.playerone-score').text(playerOneScore)
-  alert('Player One You Win')
-}
-else if(status == false && currentPlayer === 'Player One'){
-  alert('Player One You Lose')
-}
-else if(status == true && currentPlayer === 'Player Two'){
-  playerTwoScore ++
-  $('.playertwo-score').text(playerTwoScore)
-  alert('Player Two You Win')
-}
-else if(status == false && currentPlayer === 'Player Two'){
-  alert('Player Two You Lose')
-}
+  if(status == true && currentPlayer === 'Player One'){
+    playerOneScore ++
+    $('.playerone-score').text(playerOneScore)
+    // alert('Player One You Win')
+  }
+  else if(status == false && currentPlayer === 'Player One'){
+    alert('That is incorrect Player One')
+  }
+  else if(status == true && currentPlayer === 'Player Two'){
+    playerTwoScore ++
+    $('.playertwo-score').text(playerTwoScore)
+    // alert('Player Two You Win')
+  }
+  else if(status == false && currentPlayer === 'Player Two'){
+    alert('That is incorrect Player Two')
+  }
 
-if(playerOneScore === 3 || playerTwoScore === 3){
-  alert('Game Over')
-  $('#main-img').empty();
-}
-newPlayer()
+  if(playerOneScore === 1 || playerTwoScore === 1){
+    alert('Game Over')
+    if(playerOneScore > playerTwoScore){
+      alert('Player One Wins')
+    }
+    else if(playerTwoScore > playerOneScore){
+      alert('Player Two Wins')
+    }
+    else if(playerOneScore === playerTwoScore){
+      alert('It\'s a tie')
+    }
+    $('#main-img').remove();
+  }
+  newPlayer()
 };
 // checkWin()
 
@@ -141,7 +148,6 @@ function nextRound(){
 //       }
 //     }
 // displayTime();
-//Razaik Boparai's timer code
 
 function startGame(){
   displayImg()
