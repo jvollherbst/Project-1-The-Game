@@ -1,7 +1,9 @@
 var arrayLibrary = [
-  ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
-  ['images/red-circle.svg', 'images/blue-square.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
-  ['images/green-diamond.svg', 'images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg']
+  ['images/blue-square.svg', 'images/red-circle.svg','images/red-star.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
+  ['images/blue-hexagon.svg', 'images/blue-square.svg','images/yellow-hexagon.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
+  ['images/green-diamond.svg', 'images/yellow-triangle.svg', 'images/blue-square.svg','images/red-circle.svg','images/yellow-hexagon.svg'],
+  ['images/red-star.svg', 'images/blue-hexagon.svg','images/yellow-triangle.svg','images/red-circle.svg','images/yellow-hexagon.svg'],
+  ['images/blue-hexagon.svg', 'images/red-circle.svg', 'images/blue-square.svg','images/red-star.svg','images/yellow-hexagon.svg']
 ];
 
 // standard shuffle array fn
@@ -24,7 +26,9 @@ $(document).ready(function() {
 
 var game = {
   displayImg: function(){
+    Shuffle(arrayLibrary);
     var randomArray = arrayLibrary[Math.floor(Math.random() * arrayLibrary.length)];
+
     for(var i = 0; i < randomArray.length; i++){
       var newImages =  $('<div>').addClass('new-img').prepend('<img src="' + randomArray[i] + '"/>').attr('data-value', i);
       winState.push(newImages.attr('data-value'));

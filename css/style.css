@@ -29,7 +29,7 @@ button{
 }
 
 #wrapper{
-  width: 51em;
+  width: 60em;
   margin: 0 auto;
 }
 
@@ -44,7 +44,7 @@ button{
 
 #score{
   border-top: .25em solid #dfdfdf;
-  width: 50em;
+  width: 60em;
   bottom: 1em;
   position: fixed;
 }
