@@ -1,21 +1,8 @@
-//Nested array loop—worked on with Ari
-// var arrayLibrary = [[1,2,3],[4,5,6]];
-//
-// for(var i = 0; i < complexArray.length; i++){
-//   var otherArray = complexArray[i];
-//
-//   for(var j = 0; j < otherArray.length; j++){
-//     console.log(otherArray[j]);
-//   }
-// }
-
 var arrayLibrary = [
   ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
-  ['images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg',  'images/green-diamond.svg'],
+  ['images/red-circle.svg', 'images/blue-square.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
   ['images/green-diamond.svg', 'images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg']
 ];
-
-var randomArray = arrayLibrary[Math.floor(Math.random() * arrayLibrary.length)];
 
 // standard shuffle array fn
 // @see: CHRIS COYIER https://css-tricks.com/snippets/javascript/shuffle-array/
@@ -24,76 +11,157 @@ function Shuffle(o) {
 	return o;
 };// Source for above code: CHRIS COYIER https://css-tricks.com/license/
 
+var winState = [];
+var playerInput = [];
 
-// Array.protoype.shuffle = function() {
-// 	return Shuffle(this);
-// };// Source for above code: CHRIS COYIER https://css-tricks.com/license/
+var playerOneScore = 0;
+var playerTwoScore = 0;
 
-
-//$('.new-img').click(function(event){console.log($(event.target).children());});
-
-//$(this).click(function(e){console.log(e.toElement)});
-
-//what is a better way to organzie all your functions...
+var currentPlayer = 'Player One';
+var gameOver = false;
 
 $(document).ready(function() {
 
-function displayImg(){//Should be a protoype???
-  var imgArrayOne = randomArray;
-  for(var i = 0; i < imgArrayOne.length; i++){
-    $('<div>').addClass('new-img').appendTo('#main-img').prepend('<img src="' + imgArrayOne[i] + '"/>').attr('data-value', i);
-  };
-};//end displayImg
+var game = {
+  displayImg: function(){
+    var randomArray = arrayLibrary[Math.floor(Math.random() * arrayLibrary.length)];
+    for(var i = 0; i < randomArray.length; i++){
+      var newImages =  $('<div>').addClass('new-img').prepend('<img src="' + randomArray[i] + '"/>').attr('data-value', i);
+      winState.push(newImages.attr('data-value'));
+      newImages.appendTo('#main-img');
+    };
+    game.hideImg()
+    game.shuffleShowImg()
+    game.playerMove();
 
-function hideImg(){
-  setTimeout(function(){
-    $('.new-img').hide();
-  }, 4000);//needs to be less than shuffleShowImg
-  //debugger;
-};//end hideImg
-hideImg();
+  },//end displayImg
 
-function shuffleShowImg(){
-  setTimeout(function(){
-    var $newImg = $('.new-img');
-    var shuffled = Shuffle($newImg);
-    for(var i = 0; i < shuffled.length; i++){
-      $('#main-img').prepend(shuffled[i]);
+  hideImg: function(){
+    setTimeout(function(){
+      $('.new-img').hide();
+    }, 3000);
+  },//end hideImg
+
+  shuffleShowImg: function(){
+    setTimeout(function(){
+      var $newImg = $('.new-img');
+      var shuffled = Shuffle($newImg);
+      for(var i = 0; i < shuffled.length; i++){
+        $('#main-img').prepend(shuffled[i]);
+      }
+      $($newImg).show();
+    }, 3000);
+  },//end shuffleShowImg
+
+  playerMove: function (target){
+    $('.new-img').click(function(e){
+      playerInput.push($(this).attr('data-value'));
+
+      if(playerInput.length === winState.length){
+        return game.checkWin()
+      }
+    });
+  },
+
+  checkWin: function (){
+
+    var status = false;
+
+    //Had help with this from Ari Ingber
+    for(var i = 0; i < winState.length; i++){
+      if(winState[i] === playerInput[i]){
+      status = true;
+      }
+      else{
+        status = false;
+        break;
+      }
     }
-    $($newImg).show();
-  }, 6000);
-};//end shuffleShowImg
-shuffleShowImg();
 
+    winState = [];
+    playerInput = [];
 
-function playerMove(){
-  //should check user's onclicks and match against source array
-  //should return true if a match, and false if not a match
-  var playerInput = [];
+    if(status == true && currentPlayer === 'Player One'){
+      playerOneScore ++
+      $('.playerone-score').text(playerOneScore)
+    }
+    else if(status == false && currentPlayer === 'Player One'){
+      alert('That is incorrect Player One')
+    }
+    else if(status == true && currentPlayer === 'Player Two'){
+      playerTwoScore ++
+      $('.playertwo-score').text(playerTwoScore)
+    }
+    else if(status == false && currentPlayer === 'Player Two'){
+      alert('That is incorrect Player Two')
+    }
+    game.nextRound();
 
-  $(this).click(function(e){playerInput.push(e.toElement)});
+  },
 
-  return playerInput;
-  //grab input by on click
-  //push into an array for users input
-  //empty array outside of while loop
+  nextRound: function(){
+    if(playerOneScore === 3 || playerTwoScore === 3){
+      game.finalWinner();
+    }
+    else{
+      if(currentPlayer === 'Player One'){
+        currentPlayer = 'Player Two';
+        alert('Player Two\'s turn')
+      }
+      else{
+        currentPlayer = 'Player One';
+        alert('Player One\'s turn')
+      }
+      $('#main-img').empty();
+      game.displayImg();
+    }
+  },
 
-  //should also call a timer function
-};
-playerMove();
+  finalWinner: function(){
 
-function checkWin(){
-  //should check results of playerMove function
+    if(playerOneScore === 3 || playerTwoScore === 3){
+      gameOver = true;
+      alert('Game Over')
 
-  //if user clicks are === to a particular array (arrayLibrary[2], then return true/win message)
-  //if win, player receives 1 point
-  //else, alert user they are wrong
-  var playerScore;
+      if(playerOneScore > playerTwoScore){
+        alert('Player One Wins')
+      }
+      else if(playerTwoScore > playerOneScore){
+        alert('Player Two Wins')
+      }
+      else if(playerOneScore === playerTwoScore){
+        alert('It\'s a tie')
+      }
+      game.resetGame();
+    }
+  },
+
+  resetGame: function(){
+    $('#main-img').empty();
+
+    playerOneScore = 0;
+    $('.playerone-score').text(playerOneScore)
+
+    playerTwoScore = 0;
+    $('.playertwo-score').text(playerTwoScore)
+
+    currentPlayer = 'Player One';
+
+    winState = [];
+    playerInput = [];
+  }
 };
 
 function startGame(){
-  $('.start').on('click', displayImg());
+  game.resetGame();
+  game.displayImg();
 };
-startGame();
+
+function start(){
+  $('.start').on('click', function(e){
+    return startGame();
+  });
+};
+start();
 
 });// end document ready
