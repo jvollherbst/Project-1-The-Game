@@ -4,8 +4,6 @@ var arrayLibrary = [
   ['images/green-diamond.svg', 'images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg']
 ];
 
-var randomArray = arrayLibrary[Math.floor(Math.random() * arrayLibrary.length)];
-
 // standard shuffle array fn
 // @see: CHRIS COYIER https://css-tricks.com/snippets/javascript/shuffle-array/
 function Shuffle(o) {
@@ -26,9 +24,9 @@ $(document).ready(function() {
 
 var game = {
   displayImg: function(){
-    var imgArrayOne = randomArray;
-    for(var i = 0; i < imgArrayOne.length; i++){
-      var newImages =  $('<div>').addClass('new-img').prepend('<img src="' + imgArrayOne[i] + '"/>').attr('data-value', i);
+    var randomArray = arrayLibrary[Math.floor(Math.random() * arrayLibrary.length)];
+    for(var i = 0; i < randomArray.length; i++){
+      var newImages =  $('<div>').addClass('new-img').prepend('<img src="' + randomArray[i] + '"/>').attr('data-value', i);
       winState.push(newImages.attr('data-value'));
       newImages.appendTo('#main-img');
     };
@@ -41,7 +39,7 @@ var game = {
   hideImg: function(){
     setTimeout(function(){
       $('.new-img').hide();
-    }, 3000);//needs to be less than shuffleShowImg
+    }, 3000);
   },//end hideImg
 
   shuffleShowImg: function(){
@@ -50,9 +48,6 @@ var game = {
       var shuffled = Shuffle($newImg);
       for(var i = 0; i < shuffled.length; i++){
         $('#main-img').prepend(shuffled[i]);
-      //  $(shuffled[i]).click(function(event) { //this includes the #document as part of the array.stopPropagation not working...
-      //     playerMove(event.target)
-      //   });
       }
       $($newImg).show();
     }, 3000);
@@ -89,7 +84,6 @@ var game = {
     if(status == true && currentPlayer === 'Player One'){
       playerOneScore ++
       $('.playerone-score').text(playerOneScore)
-      // alert('Player One You Win')
     }
     else if(status == false && currentPlayer === 'Player One'){
       alert('That is incorrect Player One')
@@ -97,27 +91,13 @@ var game = {
     else if(status == true && currentPlayer === 'Player Two'){
       playerTwoScore ++
       $('.playertwo-score').text(playerTwoScore)
-      // alert('Player Two You Win')
     }
     else if(status == false && currentPlayer === 'Player Two'){
       alert('That is incorrect Player Two')
     }
-    // game.newPlayer()
     game.nextRound();
 
   },
-
-  // newPlayer: function(){
-  //   if(currentPlayer === 'Player One'){
-  //     currentPlayer = 'Player Two';
-  //     alert('Player Two\'s turn')
-  //   }
-  //   else{
-  //     currentPlayer = 'Player One';
-  //     alert('Player One\'s turn')
-  //   }
-  //   game.nextRound();
-  // },
 
   nextRound: function(){
     if(playerOneScore === 3 || playerTwoScore === 3){
@@ -142,7 +122,6 @@ var game = {
     if(playerOneScore === 3 || playerTwoScore === 3){
       gameOver = true;
       alert('Game Over')
-      // $('#main-img').empty();
 
       if(playerOneScore > playerTwoScore){
         alert('Player One Wins')
@@ -172,18 +151,6 @@ var game = {
     playerInput = [];
   }
 };
-
-//Razaik Boparai's timer code
-// function displayTime() {
-//       counter = 0;
-//       var timer = setInterval(gettime, 1000);
-//       function gettime(){
-//         counter++;
-//         //i++;
-//         $('.timer').text('Time: ' + counter);
-//       }
-//     }
-// displayTime();
 
 function startGame(){
   game.resetGame();
