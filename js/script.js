@@ -1,6 +1,6 @@
 var arrayLibrary = [
   ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
-  ['images/blue-square.svg', 'images/red-circle.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
+  ['images/red-circle.svg', 'images/blue-square.svg', 'images/yellow-triangle.svg', 'images/green-diamond.svg'],
   ['images/green-diamond.svg', 'images/yellow-triangle.svg','images/red-circle.svg','images/blue-square.svg']
 ];
 
@@ -28,9 +28,9 @@ var game = {
   displayImg: function(){
     var imgArrayOne = randomArray;
     for(var i = 0; i < imgArrayOne.length; i++){
-      var x =  $('<div>').addClass('new-img').prepend('<img src="' + imgArrayOne[i] + '"/>').attr('data-value', i);
-      winState.push(x.attr('data-value'));
-      x.appendTo('#main-img');
+      var newImages =  $('<div>').addClass('new-img').prepend('<img src="' + imgArrayOne[i] + '"/>').attr('data-value', i);
+      winState.push(newImages.attr('data-value'));
+      newImages.appendTo('#main-img');
     };
     game.hideImg()
     game.shuffleShowImg()
@@ -76,12 +76,12 @@ var game = {
     for(var i = 0; i < winState.length; i++){
       if(winState[i] === playerInput[i]){
       status = true;
+      }
+      else{
+        status = false;
+        break;
+      }
     }
-    else{
-      status = false;
-      break;
-    }
-    };
 
     winState = [];
     playerInput = [];
@@ -102,26 +102,36 @@ var game = {
     else if(status == false && currentPlayer === 'Player Two'){
       alert('That is incorrect Player Two')
     }
-    game.newPlayer()
+    // game.newPlayer()
+    game.nextRound();
+
   },
 
-  newPlayer: function(){
-    if(currentPlayer === 'Player One'){
-      currentPlayer = 'Player Two';
-      alert('Player Two\'s turn')
-    }
-    else{
-      currentPlayer = 'Player One';
-      alert('Player One\'s turn')
-    }
-    game.nextRound();
-  },
+  // newPlayer: function(){
+  //   if(currentPlayer === 'Player One'){
+  //     currentPlayer = 'Player Two';
+  //     alert('Player Two\'s turn')
+  //   }
+  //   else{
+  //     currentPlayer = 'Player One';
+  //     alert('Player One\'s turn')
+  //   }
+  //   game.nextRound();
+  // },
 
   nextRound: function(){
     if(playerOneScore === 3 || playerTwoScore === 3){
       game.finalWinner();
     }
     else{
+      if(currentPlayer === 'Player One'){
+        currentPlayer = 'Player Two';
+        alert('Player Two\'s turn')
+      }
+      else{
+        currentPlayer = 'Player One';
+        alert('Player One\'s turn')
+      }
       $('#main-img').empty();
       game.displayImg();
     }
@@ -132,7 +142,7 @@ var game = {
     if(playerOneScore === 3 || playerTwoScore === 3){
       gameOver = true;
       alert('Game Over')
-      $('#main-img').empty();
+      // $('#main-img').empty();
 
       if(playerOneScore > playerTwoScore){
         alert('Player One Wins')
@@ -148,6 +158,8 @@ var game = {
   },
 
   resetGame: function(){
+    $('#main-img').empty();
+
     playerOneScore = 0;
     $('.playerone-score').text(playerOneScore)
 
@@ -155,6 +167,9 @@ var game = {
     $('.playertwo-score').text(playerTwoScore)
 
     currentPlayer = 'Player One';
+
+    winState = [];
+    playerInput = [];
   }
 };
 
@@ -171,12 +186,15 @@ var game = {
 // displayTime();
 
 function startGame(){
+  game.resetGame();
   game.displayImg();
 };
 
 function start(){
-  $('.start').on('click', function(e){return startGame()});
+  $('.start').on('click', function(e){
+    return startGame();
+  });
 };
-start()
+start();
 
 });// end document ready
